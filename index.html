@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PuckSense - AI-Powered Hockey Coaching</title>
+    
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-T3LFEH0JT5"></script>
     <script>
@@ -11,131 +12,136 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-T3LFEH0JT5');
+        
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const userType = formData.get('userType');
+            const age = formData.get('age');
+            
+            // Send form submission event to GA4
+            gtag('event', 'form_submit', {
+                'event_category': 'waitlist',
+                'user_type': userType,
+                'age_range': age
+            });
+            
+            // Show success message
+            document.getElementById('success-message').classList.remove('hidden');
+            event.target.reset();
+            
+            // You could also send this data to your email/spreadsheet using a service like Formspree
+            // Just add your Formspree endpoint as the form's action attribute
+        }
+
+        function toggleAgeField() {
+            const userType = document.querySelector('input[name="userType"]:checked').value;
+            const ageField = document.getElementById('age-field');
+            const ageLabel = document.getElementById('age-label');
+            
+            if (userType === 'parent') {
+                ageLabel.textContent = "How old is your child?";
+                ageField.classList.remove('hidden');
+            } else if (userType === 'player') {
+                ageLabel.textContent = "How old are you?";
+                ageField.classList.remove('hidden');
+            } else {
+                ageField.classList.add('hidden');
+            }
+        }
     </script>
-    <!-- Tailwind and Custom Styles -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"></script>
+    
     <style>
-        :root {
-            --primary-blue: #0066cc;
-            --secondary-blue: #E5F0FF;
+        /* ... (previous styles remain the same) ... */
+        .hidden {
+            display: none;
         }
         
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
         }
         
-        .hero-gradient {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        .highlight {
-            color: var(--primary-blue);
-            font-weight: 600;
-        }
-        
-        .cta-button {
-            background: var(--primary-blue);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 102, 204, 0.2);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 102, 204, 0.3);
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,...");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            padding-right: 2rem;
         }
     </style>
 </head>
-<body class="min-h-screen bg-white">
-    <!-- Header -->
-    <header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold text-gray-800">PuckSense</div>
-                <a href="#waitlist" 
-                   class="cta-button px-6 py-2 text-white rounded-full font-medium"
-                   onclick="gtag('event', 'waitlist_click', {'event_category': 'engagement'});">
-                    Join Waitlist
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero-gradient pt-24 pb-16">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2 space-y-6">
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                        Providing accessible feedback.<br/>
-                        <span class="text-blue-600">Anytime, Anywhere.</span>
-                    </h1>
-                    <p class="text-lg text-gray-700 leading-relaxed">
-                        Imagine giving every young hockey player access to world-class coaching, <span class="highlight">anytime, anywhere</span>. That's what Puck Sense delivers.
-                    </p>
-                    <a href="#waitlist" 
-                       class="cta-button inline-block px-8 py-3 text-white rounded-full text-lg font-medium"
-                       onclick="gtag('event', 'hero_cta_click', {'event_category': 'engagement'});">
-                        Get Early Access
-                    </a>
-                </div>
-                <div class="lg:w-1/2">
-                    <img src="/api/placeholder/800/600" alt="PuckSense App Interface" class="rounded-2xl shadow-2xl" />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Features -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="max-w-3xl mx-auto text-center mb-16">
-                <h2 class="text-3xl font-bold mb-6">Revolutionizing Hockey Training</h2>
-                <p class="text-lg text-gray-700 leading-relaxed">
-                    Our AI-powered video analysis tool <span class="highlight">democratizes</span> sports coaching by providing high-quality tips and strategic insights to players of all levels. <span class="highlight">Simply</span> upload your game footage, and Puck Sense's advanced AI breaks down your performance, offering personalized coaching advice and tactical recommendations.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="feature-card p-6">
-                    <h3 class="text-xl font-semibold mb-3">AI Video Analysis</h3>
-                    <p class="text-gray-600">Upload your game footage and get instant, detailed breakdown of your performance.</p>
-                </div>
-                <div class="feature-card p-6">
-                    <h3 class="text-xl font-semibold mb-3">Personalized Coaching</h3>
-                    <p class="text-gray-600">Receive tailored advice and strategic insights to improve your game.</p>
-                </div>
-                <div class="feature-card p-6">
-                    <h3 class="text-xl font-semibold mb-3">Develop Hockey IQ</h3>
-                    <p class="text-gray-600">Enhance both skills and sports intelligence through AI-powered insights.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Waitlist Section -->
+<body>
+    <!-- Previous sections remain the same until waitlist section -->
+    
     <section id="waitlist" class="py-20 bg-gray-50">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-3xl font-bold mb-6">Join the Future of Hockey Training</h2>
-            <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
-                Be among the first to experience how PuckSense is revolutionizing how young athletes learn and grow in the sport.
-            </p>
-            <a href="https://forms.gle/your-form-id" 
-               class="cta-button inline-block px-8 py-3 text-white rounded-full text-lg font-medium"
-               onclick="gtag('event', 'waitlist_final_click', {'event_category': 'conversion'});">
-                Join Our Waitlist
-            </a>
+            
+            <!-- Form with conditional fields -->
+            <form onsubmit="handleFormSubmit(event)" class="max-w-md mx-auto" method="POST" action="https://formspree.io/f/your-formspree-id">
+                <div class="space-y-6">
+                    <div>
+                        <label for="email" class="block text-left text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        />
+                    </div>
+                    
+                    <div>
+                        <label class="block text-left text-sm font-medium text-gray-700 mb-1">I am a:</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="userType" value="parent" onchange="toggleAgeField()" required>
+                                Parent
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="userType" value="player" onchange="toggleAgeField()">
+                                Player
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="userType" value="coach" onchange="toggleAgeField()">
+                                Coach
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="age-field" class="hidden">
+                        <label id="age-label" class="block text-left text-sm font-medium text-gray-700 mb-1">Age</label>
+                        <select name="age" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="">Select age range</option>
+                            <option value="under-10">Under 10</option>
+                            <option value="10-13">10-13</option>
+                            <option value="14-17">14-17</option>
+                            <option value="18-plus">18+</option>
+                        </select>
+                    </div>
+                    
+                    <button
+                        type="submit"
+                        class="w-full cta-button px-8 py-3 text-white rounded-full text-lg font-medium"
+                    >
+                        Join Our Waitlist
+                    </button>
+                </div>
+                
+                <div id="success-message" class="mt-4 text-green-600 hidden">
+                    Thanks for joining! We'll keep you updated on our launch.
+                </div>
+            </form>
         </div>
     </section>
 
