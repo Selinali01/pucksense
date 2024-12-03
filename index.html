@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PuckSense - AI-Powered Hockey Coaching</title>
-    <!-- Google Analytics 4 Tracking Code -->
+    <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-T3LFEH0JT5"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -12,115 +12,144 @@
         gtag('js', new Date());
         gtag('config', 'G-T3LFEH0JT5');
     </script>
-    <!-- Tailwind CSS -->
+    <!-- Tailwind and Custom Styles -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"></script>
-    <!-- Lucide Icons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
     <style>
-        .bg-gradient-custom {
-            background: linear-gradient(to bottom, #dbeafe, #ffffff);
+        :root {
+            --primary-blue: #0066cc;
+            --secondary-blue: #E5F0FF;
         }
-        .dark .bg-gradient-custom {
-            background: linear-gradient(to bottom, #1e3a8a, #111827);
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        
+        .highlight {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+        
+        .cta-button {
+            background: var(--primary-blue);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 102, 204, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 102, 204, 0.3);
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
-    <header class="px-4 lg:px-6 h-14 flex items-center">
-        <a class="flex items-center justify-center" href="#">
-            <i data-lucide="activity" class="h-6 w-6"></i>
-            <span class="ml-2 text-lg font-bold">Puck Sense</span>
-        </a>
-        <nav class="ml-auto flex gap-4 sm:gap-6">
-            <a class="text-sm font-medium hover:underline underline-offset-4" href="#features">Features</a>
-            <a class="text-sm font-medium hover:underline underline-offset-4" href="#how-it-works">How It Works</a>
-            <a class="text-sm font-medium hover:underline underline-offset-4" href="#waitlist">Join Waitlist</a>
-        </nav>
+<body class="min-h-screen bg-white">
+    <!-- Header -->
+    <header class="fixed w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-gray-800">PuckSense</div>
+                <a href="#waitlist" 
+                   class="cta-button px-6 py-2 text-white rounded-full font-medium"
+                   onclick="gtag('event', 'waitlist_click', {'event_category': 'engagement'});">
+                    Join Waitlist
+                </a>
+            </div>
+        </div>
     </header>
 
-    <main class="flex-1">
-        <section class="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-custom">
-            <div class="container px-4 md:px-6 py-8 md:py-12">
-                <div class="flex flex-col lg:flex-row items-center gap-8 pb-8">
-                    <div class="flex-1 space-y-4">
-                        <h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
-                            Elevate Your Hockey Game with AI-Powered Coaching
-                        </h1>
-                        <p class="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
-                            Puck Sense: Your personal AI coach for developing true hockey intelligence. Analyze, learn, and improve - anytime, anywhere.
-                        </p>
-                        <div class="space-x-4">
-                            <a href="#waitlist" class="inline-flex h-9 items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-blue-700">
-                                Join Waitlist
-                            </a>
-                            <a href="#how-it-works" class="inline-flex h-9 items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium shadow-sm hover:bg-gray-100">
-                                Learn More
-                            </a>
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <img src="/api/placeholder/600/400" alt="AI-powered hockey analysis visualization" class="rounded-lg object-cover w-full max-w-[600px] mx-auto" />
-                    </div>
+    <!-- Hero Section -->
+    <section class="hero-gradient pt-24 pb-16">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 space-y-6">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+                        Providing accessible feedback.<br/>
+                        <span class="text-blue-600">Anytime, Anywhere.</span>
+                    </h1>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        Imagine giving every young hockey player access to world-class coaching, <span class="highlight">anytime, anywhere</span>. That's what Puck Sense delivers.
+                    </p>
+                    <a href="#waitlist" 
+                       class="cta-button inline-block px-8 py-3 text-white rounded-full text-lg font-medium"
+                       onclick="gtag('event', 'hero_cta_click', {'event_category': 'engagement'});">
+                        Get Early Access
+                    </a>
+                </div>
+                <div class="lg:w-1/2">
+                    <img src="/api/placeholder/800/600" alt="PuckSense App Interface" class="rounded-2xl shadow-2xl" />
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Features Section -->
-        <section id="features" class="w-full py-12 md:py-24 lg:py-32">
-            <div class="container px-4 md:px-6">
-                <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8">Key Features</h2>
-                <div class="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
-                    <div class="flex flex-col items-center space-y-2 border-gray-800 p-4 rounded-lg">
-                        <i data-lucide="video" class="h-8 w-8 mb-2"></i>
-                        <h3 class="text-xl font-bold">AI Video Analysis</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 text-center">
-                            Upload your game footage and get instant, in-depth analysis of your performance.
-                        </p>
-                    </div>
-                    <!-- Additional feature cards here -->
+    <!-- Main Features -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <h2 class="text-3xl font-bold mb-6">Revolutionizing Hockey Training</h2>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Our AI-powered video analysis tool <span class="highlight">democratizes</span> sports coaching by providing high-quality tips and strategic insights to players of all levels. <span class="highlight">Simply</span> upload your game footage, and Puck Sense's advanced AI breaks down your performance, offering personalized coaching advice and tactical recommendations.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="feature-card p-6">
+                    <h3 class="text-xl font-semibold mb-3">AI Video Analysis</h3>
+                    <p class="text-gray-600">Upload your game footage and get instant, detailed breakdown of your performance.</p>
+                </div>
+                <div class="feature-card p-6">
+                    <h3 class="text-xl font-semibold mb-3">Personalized Coaching</h3>
+                    <p class="text-gray-600">Receive tailored advice and strategic insights to improve your game.</p>
+                </div>
+                <div class="feature-card p-6">
+                    <h3 class="text-xl font-semibold mb-3">Develop Hockey IQ</h3>
+                    <p class="text-gray-600">Enhance both skills and sports intelligence through AI-powered insights.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- How It Works Section -->
-        <section id="how-it-works" class="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-            <!-- Content similar to features section -->
-        </section>
+    <!-- Waitlist Section -->
+    <section id="waitlist" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">Join the Future of Hockey Training</h2>
+            <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+                Be among the first to experience how PuckSense is revolutionizing how young athletes learn and grow in the sport.
+            </p>
+            <a href="https://forms.gle/your-form-id" 
+               class="cta-button inline-block px-8 py-3 text-white rounded-full text-lg font-medium"
+               onclick="gtag('event', 'waitlist_final_click', {'event_category': 'conversion'});">
+                Join Our Waitlist
+            </a>
+        </div>
+    </section>
 
-        <!-- Waitlist Section -->
-        <section id="waitlist" class="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-            <div class="container px-4 md:px-6">
-                <div class="flex flex-col items-center space-y-4 text-center">
-                    <div class="space-y-2">
-                        <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Join Our Waitlist</h2>
-                        <p class="mx-auto max-w-[600px] text-gray-500 md:text-xl">
-                            Be among the first to experience the future of hockey coaching.
-                        </p>
-                    </div>
-                    <div class="w-full max-w-sm space-y-2">
-                        <!-- Google Form Button -->
-                        <a href="https://forms.gle/your-form-id" 
-                           class="inline-block w-full px-6 py-3 rounded-md bg-blue-600 text-white font-medium text-center hover:bg-blue-700"
-                           onclick="gtag('event', 'waitlist_click', {'event_category': 'engagement'});">
-                            Join Waitlist
-                        </a>
-                    </div>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-600 text-sm">© 2024 PuckSense. All rights reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Privacy Policy</a>
+                    <a href="#" class="text-sm text-gray-600 hover:text-gray-900">Terms of Service</a>
                 </div>
             </div>
-        </section>
-    </main>
-
-    <footer class="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p class="text-xs text-gray-500">© 2024 Puck Sense. All rights reserved.</p>
-        <nav class="sm:ml-auto flex gap-4 sm:gap-6">
-            <a class="text-xs hover:underline underline-offset-4" href="#">Terms of Service</a>
-            <a class="text-xs hover:underline underline-offset-4" href="#">Privacy</a>
-        </nav>
+        </div>
     </footer>
-
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-    </script>
 </body>
 </html>
