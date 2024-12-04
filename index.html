@@ -22,74 +22,23 @@
         const userType = formData.get('userType');
         const age = formData.get('age');
         
-        // Event data object
-        const eventData = {
+        // Track form submission in GA4
+        gtag('event', 'waitlist_signup', {
             'event_category': 'conversion',
             'event_label': 'waitlist_form',
             'user_type': userType,
-            'age_range': age || 'not_provided',
-            'has_email': !!email,
-            'timestamp': new Date().toISOString(),
-            'form_name': 'hockey_waitlist',
-            'page_location': window.location.href
-        };
-
-        // Send event to both properties
-        gtag('event', 'waitlist_signup', {
-            ...eventData,
-            'send_to': 'G-DEL980W3TP'
+            'age_range': age || 'not_provided'
         });
         
-        gtag('event', 'waitlist_signup', {
-            ...eventData,
-            'send_to': 'G-T3LFEH0JT5'
-        });
-
-        // Log to console for debugging
-        console.log('Form submitted with data:', {
-            email: email ? 'provided' : 'not_provided',
-            userType,
-            age,
-            timestamp: new Date().toISOString()
-        });
-        
-        // Visual feedback
+        // Show success message
         document.getElementById('success-message').classList.remove('hidden');
+        
+        // Submit form to Formspree
+        event.target.submit();
+        
+        // Reset form
         event.target.reset();
     }
-
-    function validateForm() {
-        const form = document.querySelector('form');
-        
-        form.addEventListener('submit', function(event) {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                return false;
-            }
-            handleFormSubmit(event);
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        validateForm();
-        
-        // Verify both GA4 properties are loaded
-        if (typeof gtag === 'function') {
-            console.log('GA4 loaded successfully');
-            
-            // Test event to verify tracking for both properties
-            gtag('event', 'page_ready', {
-                'page_location': window.location.href,
-                'send_to': 'G-DEL980W3TP'
-            });
-            gtag('event', 'page_ready', {
-                'page_location': window.location.href,
-                'send_to': 'G-T3LFEH0JT5'
-            });
-        } else {
-            console.error('GA4 not loaded properly');
-        }
-    });
 
     function toggleAgeField() {
         const userType = document.querySelector('input[name="userType"]:checked').value;
@@ -106,6 +55,15 @@
             ageField.classList.add('hidden');
         }
     }
+
+    // Initialize when document loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Verify GA4 is loaded
+        if (typeof gtag === 'function') {
+            console.log('GA4 loaded successfully');
+            gtag('event', 'page_view');
+        }
+    });
     </script>
     
     <style>
@@ -341,7 +299,8 @@
             <p style="max-width: 600px; margin: 1rem auto;">Be among the first to experience the future of hockey coaching. Sign up now for early access and exclusive updates.</p>
             
             <div class="form-container">
-                <form onsubmit="handleFormSubmit(event)" method="POST" action="https://formspree.io/f/your-formspree-id">
+                <!-- Replace YOUR_FORMSPREE_ENDPOINT with your actual endpoint -->
+                <form onsubmit="handleFormSubmit(event)" method="POST" action="https://formspree.io/f/mqaknwwa">
                     <div>
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" required />
@@ -379,13 +338,12 @@
                     <button type="submit">Join Our Waitlist</button>
                     
                     <div id="success-message" class="success-message hidden">
-                        Thanks for joining! We'll keep you updated on our launch!
+                        Thanks for joining. We'll keep you updated on our launch!
                     </div>
                 </form>
             </div>
         </div>
     </section>
-
     <footer>
         <div class="container">
             <p>© 2024 PuckSense. All rights reserved.</p>
